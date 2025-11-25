@@ -1,0 +1,7 @@
+<view class="container">
+<view>111122223113333</view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>
+

@@ -1,0 +1,9 @@
+<!--pages/home/home.wxml-->
+<view class="container">
+  <view class="placeholder-content">
+    <view class="icon">🏠</view>
+    <text class="title">首页</text>
+    <text class="desc">首页内容开发中...</text>
+  </view>
+</view>
+

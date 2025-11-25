@@ -1,0 +1,9 @@
+<!--pages/discover/discover.wxml-->
+<view class="container">
+  <view class="placeholder-content">
+    <view class="icon">🔍</view>
+    <text class="title">发现</text>
+    <text class="desc">发现页面内容开发中...</text>
+  </view>
+</view>
+

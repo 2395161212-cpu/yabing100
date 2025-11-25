@@ -1,0 +1,11 @@
+{
+  "name": "my-miniapp",
+  "version": "1.0.0",
+  "description": "一个基础的微信小程序项目模板。",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
