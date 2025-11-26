@@ -75,6 +75,7 @@ page {
   font-size: 32rpx;
   color: #333;
   border: 2rpx solid #e8ebf5;
+  box-sizing: border-box;
 }
 
 .form-input::-webkit-input-placeholder {
