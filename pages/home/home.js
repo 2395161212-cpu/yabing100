@@ -5,19 +5,41 @@ Page({
     navItems: [],
     categories: [],
     activeCategory: 0,
+    activeNav: 0, // 当前激活的金刚位（默认激活科普视频）
     videos: [],
     page: 1,
     pageSize: 10,
     loading: false,
     hasMore: true,
     statusBarHeight: 0, // 状态栏高度
-    navBarHeight: 0 // 整个导航栏高度（状态栏 + 自定义导航栏）
+    navBarHeight: 0, // 整个导航栏高度（状态栏 + 自定义导航栏）
+    // 科普名医相关
+    doctorCategories: [
+      { id: 0, name: '心脑血管' },
+      { id: 1, name: '糖尿病' },
+      { id: 2, name: '秋冬养生' },
+      { id: 3, name: '失眠' },
+      { id: 4, name: '小儿消化' }
+    ],
+    activeDoctorCategory: 0,
+    doctors: [],
+    // 科普之星相关
+    starCategories: [
+      { id: 0, name: '推荐' },
+      { id: 1, name: '热门' },
+      { id: 2, name: '新人' },
+      { id: 3, name: '专家' }
+    ],
+    activeStarCategory: 0,
+    stars: []
   },
 
   onLoad(options) {
     this.setNavBarHeight();
     this.initData();
     this.loadVideos();
+    this.loadDoctors();
+    this.loadStars();
   },
 
   // 设置导航栏高度
@@ -41,6 +63,7 @@ Page({
 
     // 金刚位数据
     const navItems = [
+      { id: 0, icon: '/images/kingkongone.png', name: '科普视频' },
       { id: 1, icon: '/images/kingkongone.png', name: '科普名医' },
       { id: 2, icon: '/images/kingkongtwo.png', name: '科普之星' },
       { id: 3, icon: '/images/kingkongthree.png', name: 'CHTV' }
@@ -160,10 +183,16 @@ Page({
   onNavTap(e) {
     const id = e.currentTarget.dataset.id;
     const nav = this.data.navItems.find(item => item.id === id);
-    wx.showToast({
-      title: `点击了${nav.name}`,
-      icon: 'none'
+    
+    // 更新激活状态
+    this.setData({
+      activeNav: id
     });
+
+    console.log(`切换到：${nav.name}`);
+    
+    // 这里可以根据不同的金刚位加载不同的内容
+    // 例如：切换视频列表数据源等
   },
 
   // 分类标签点击事件
@@ -237,6 +266,108 @@ Page({
     });
     this.loadVideos();
     wx.stopPullDownRefresh();
+  },
+
+  // 加载医生列表
+  loadDoctors() {
+    const doctors = this.generateMockDoctors();
+    this.setData({
+      doctors: doctors
+    });
+  },
+
+  // 生成模拟医生数据
+  generateMockDoctors() {
+    const doctors = [];
+    const names = ['医生一', '医生二', '医生三', '医生四'];
+    const departments = ['心血管内科', '内分泌科', '神经内科', '儿科'];
+    const hospitals = ['南方医科院大学', '北京协和医院', '上海交通大学医学院', '复旦大学附属医院'];
+    const tags = ['标签内容一', '标签内容二', '专家门诊', '特需门诊'];
+    
+    for (let i = 0; i < 4; i++) {
+      doctors.push({
+        id: i + 1,
+        name: names[i],
+        avatar: `https://picsum.photos/200/200?random=${i + 100}`,
+        title: '主任医师',
+        department: departments[i],
+        hospital: hospitals[i],
+        tag: tags[i],
+        introduction: '主任医师，医学博士，毕业于，临床经验8年。擅长：冠心病、不稳定型心绞痛、高血压、心力衰竭、动脉粥样硬化、高脂血症、早搏、卵圆孔未闭等。'
+      });
+    }
+    
+    return doctors;
+  },
+
+  // 医生分类切换
+  onDoctorCategoryTap(e) {
+    const id = e.currentTarget.dataset.id;
+    this.setData({
+      activeDoctorCategory: id
+    });
+    console.log('切换医生分类:', this.data.doctorCategories[id].name);
+  },
+
+  // 医生卡片点击
+  onDoctorTap(e) {
+    const id = e.currentTarget.dataset.id;
+    console.log('点击医生:', id);
+    wx.showToast({
+      title: '医生详情页开发中',
+      icon: 'none'
+    });
+  },
+
+  // 加载科普之星列表
+  loadStars() {
+    const stars = this.generateMockStars();
+    this.setData({
+      stars: stars
+    });
+  },
+
+  // 生成模拟科普之星数据
+  generateMockStars() {
+    const stars = [];
+    const names = ['科普之星一', '科普之星二', '科普之星三', '科普之星四'];
+    const departments = ['骨科', '妇产科', '皮肤科', '营养科'];
+    const hospitals = ['中山大学附属医院', '浙江大学医学院', '四川大学华西医院', '武汉大学人民医院'];
+    const tags = ['优质创作者', '热门推荐', '最佳科普奖', '人气之星'];
+    
+    for (let i = 0; i < 4; i++) {
+      stars.push({
+        id: i + 1,
+        name: names[i],
+        avatar: `https://picsum.photos/200/200?random=${i + 200}`,
+        title: '副主任医师',
+        department: departments[i],
+        hospital: hospitals[i],
+        tag: tags[i],
+        introduction: '副主任医师，医学硕士，从事临床工作多年。擅长：常见疾病诊治、健康科普传播，累计发布优质科普内容100+，获得患者一致好评。'
+      });
+    }
+    
+    return stars;
+  },
+
+  // 科普之星分类切换
+  onStarCategoryTap(e) {
+    const id = e.currentTarget.dataset.id;
+    this.setData({
+      activeStarCategory: id
+    });
+    console.log('切换科普之星分类:', this.data.starCategories[id].name);
+  },
+
+  // 科普之星卡片点击
+  onStarTap(e) {
+    const id = e.currentTarget.dataset.id;
+    console.log('点击科普之星:', id);
+    wx.showToast({
+      title: '科普之星详情页开发中',
+      icon: 'none'
+    });
   },
 
   onShareAppMessage() {

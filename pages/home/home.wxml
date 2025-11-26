@@ -19,49 +19,126 @@
       <view class="nav-icon">
         <image src="{{item.icon}}" mode="aspectFit" class="nav-icon-img"></image>
       </view>
-      <text class="nav-text">{{item.name}}</text>
+      <text class="nav-text {{activeNav === item.id ? 'active' : ''}}">{{item.name}}</text>
     </view>
   </view>
 
   <!-- 视频列表 -->
   <view class="video-section">
-    <!-- 分类标签 -->
-    <scroll-view class="category-tabs" scroll-x enable-flex>
-      <view class="category-item {{activeCategory === item.id ? 'active' : ''}}" 
-            wx:for="{{categories}}" 
-            wx:key="id" 
-            bindtap="onCategoryTap" 
-            data-id="{{item.id}}">
-        {{item.name}}
-      </view>
-    </scroll-view>
-    
-    <view class="video-list">
-      <view class="video-item" wx:for="{{videos}}" wx:key="id" bindtap="onVideoTap" data-id="{{item.id}}">
-        <image src="{{item.cover}}" mode="aspectFill" class="video-cover"></image>
-        <view class="video-info">
-          <text class="video-title">{{item.title}}</text>
-          <view class="video-meta">
-            <view class="video-author">
-              <image src="{{item.avatar}}" mode="aspectFill" class="author-avatar"></image>
-              <text class="author-name">{{item.author}}</text>
-            </view>
-            <view class="video-likes">
-              <image src="/images/like.png" mode="aspectFit" class="like-icon"></image>
-              <text class="likes-count">{{item.likes}}</text>
+    <!-- 科普视频内容 -->
+    <block wx:if="{{activeNav === 0}}">
+      <!-- 分类标签 -->
+      <scroll-view class="category-tabs" scroll-x enable-flex>
+        <view class="category-item {{activeCategory === item.id ? 'active' : ''}}" 
+              wx:for="{{categories}}" 
+              wx:key="id" 
+              bindtap="onCategoryTap" 
+              data-id="{{item.id}}">
+          {{item.name}}
+        </view>
+      </scroll-view>
+      
+      <view class="video-list">
+        <view class="video-item" wx:for="{{videos}}" wx:key="id" bindtap="onVideoTap" data-id="{{item.id}}">
+          <image src="{{item.cover}}" mode="aspectFill" class="video-cover"></image>
+          <view class="video-info">
+            <text class="video-title">{{item.title}}</text>
+            <view class="video-meta">
+              <view class="video-author">
+                <image src="{{item.avatar}}" mode="aspectFill" class="author-avatar"></image>
+                <text class="author-name">{{item.author}}</text>
+              </view>
+              <view class="video-likes">
+                <image src="/images/like.png" mode="aspectFit" class="like-icon"></image>
+                <text class="likes-count">{{item.likes}}</text>
+              </view>
             </view>
           </view>
         </view>
       </view>
-    </view>
-    
-    <!-- 加载状态 -->
-    <view class="loading-status" wx:if="{{loading}}">
-      <text>加载中...</text>
-    </view>
-    <view class="loading-status" wx:if="{{!hasMore && videos.length > 0}}">
-      <text>没有更多了</text>
-    </view>
+      
+      <!-- 加载状态 -->
+      <view class="loading-status" wx:if="{{loading}}">
+        <text>加载中...</text>
+      </view>
+      <view class="loading-status" wx:if="{{!hasMore && videos.length > 0}}">
+        <text>没有更多了</text>
+      </view>
+    </block>
+
+    <!-- 科普名医内容 -->
+    <block wx:elif="{{activeNav === 1}}">
+      <!-- 分类标签 -->
+      <scroll-view class="category-tabs" scroll-x enable-flex>
+        <view class="category-item {{activeDoctorCategory === item.id ? 'active' : ''}}" 
+              wx:for="{{doctorCategories}}" 
+              wx:key="id" 
+              bindtap="onDoctorCategoryTap" 
+              data-id="{{item.id}}">
+          {{item.name}}
+        </view>
+      </scroll-view>
+
+      <!-- 医生列表 -->
+      <view class="doctor-list">
+        <view class="doctor-card-item" wx:for="{{doctors}}" wx:key="id" bindtap="onDoctorTap" data-id="{{item.id}}">
+          <image class="doctor-avatar" src="{{item.avatar}}" mode="cover"></image>
+          <view class="doctor-content">
+            <view class="doctor-title-row">
+              <text class="doctor-name">{{item.name}}</text>
+              <image class="doctor-badge" src="/images/doctor-certification.png" mode="aspectFit"></image>
+              <text class="doctor-title-text">{{item.title}} | {{item.department}}</text>
+            </view>
+            <view class="doctor-tags">
+              <text class="doctor-tag">{{item.hospital}}</text>
+              <text class="doctor-tag">{{item.tag}}</text>
+            </view>
+            <text class="doctor-intro">{{item.introduction}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 科普之星内容 -->
+    <block wx:elif="{{activeNav === 2}}">
+      <!-- 分类标签 -->
+      <scroll-view class="category-tabs" scroll-x enable-flex>
+        <view class="category-item {{activeStarCategory === item.id ? 'active' : ''}}" 
+              wx:for="{{starCategories}}" 
+              wx:key="id" 
+              bindtap="onStarCategoryTap" 
+              data-id="{{item.id}}">
+          {{item.name}}
+        </view>
+      </scroll-view>
+
+      <!-- 科普之星列表 -->
+      <view class="doctor-list">
+        <view class="doctor-card-item" wx:for="{{stars}}" wx:key="id" bindtap="onStarTap" data-id="{{item.id}}">
+          <image class="doctor-avatar" src="{{item.avatar}}" mode="cover"></image>
+          <view class="doctor-content">
+            <view class="doctor-title-row">
+              <text class="doctor-name">{{item.name}}</text>
+              <image class="doctor-badge" src="/images/doctor-certification.png" mode="aspectFit"></image>
+              <text class="doctor-title-text">{{item.title}} | {{item.department}}</text>
+            </view>
+            <view class="doctor-tags">
+              <text class="doctor-tag">{{item.hospital}}</text>
+              <text class="doctor-tag">{{item.tag}}</text>
+            </view>
+            <text class="doctor-intro">{{item.introduction}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 其他金刚位内容（CHTV） -->
+    <block wx:else>
+      <view class="empty-content">
+        <text class="empty-icon">📺</text>
+        <text class="empty-text">CHTV内容开发中</text>
+      </view>
+    </block>
   </view>
 </scroll-view>
 
