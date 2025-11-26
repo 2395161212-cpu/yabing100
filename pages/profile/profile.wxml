@@ -95,7 +95,10 @@
             <text class="doctor-name-large">{{doctorInfo.name}}</text>
             <image class="verify-badge" src="/images/doctor-certification.png" mode="aspectFit"></image>
           </view>
-          <text class="doctor-position">{{doctorInfo.department}} | {{doctorInfo.title}}</text>
+          <view class="position-row">
+            <text class="doctor-position">{{doctorInfo.department}} | {{doctorInfo.title}}</text>
+            <image class="edit-icon" src="/images/edit.png" mode="aspectFit"></image>
+          </view>
           <text class="doctor-hospital-name">{{doctorInfo.hospital}}</text>
         </view>
       </view>
@@ -176,6 +179,39 @@
 
       <!-- 功能按钮组 -->
    
+    </view>
+
+    <!-- 视频列表区域 -->
+    <view class="doctor-video-section">
+      <!-- 分类标签 -->
+      <scroll-view class="category-tabs" scroll-x enable-flex>
+        <view class="category-item {{activeCategory === item.id ? 'active' : ''}}" 
+              wx:for="{{videoCategories}}" 
+              wx:key="id" 
+              bindtap="onVideoCategoryTap" 
+              data-id="{{item.id}}">
+          {{item.name}}
+        </view>
+      </scroll-view>
+      
+      <view class="video-list">
+        <view class="video-item" wx:for="{{doctorVideos}}" wx:key="id" bindtap="onVideoTap" data-id="{{item.id}}">
+          <image src="{{item.cover}}" mode="aspectFill" class="video-cover"></image>
+          <view class="video-info">
+            <text class="video-title">{{item.title}}</text>
+            <view class="video-meta">
+              <view class="video-author">
+                <image src="{{item.avatar}}" mode="aspectFill" class="author-avatar"></image>
+                <text class="author-name">{{item.author}}</text>
+              </view>
+              <view class="video-likes">
+                <image src="/images/like.png" mode="aspectFit" class="like-icon"></image>
+                <text class="likes-count">{{item.likes}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 

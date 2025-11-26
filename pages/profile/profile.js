@@ -16,6 +16,13 @@ Page({
     // 认证状态：null-未认证, 'pending'-审核中, 'doctor'-已认证医生, 'patient'-已认证患者
     certStatus: null,
     doctorInfo: null, // 医生信息
+    // 视频相关
+    videoCategories: [
+      { id: 0, name: '我创作的' },
+      { id: 1, name: '我关注的' }
+    ],
+    activeCategory: 0,
+    doctorVideos: []
   },
 
   onLoad(options) {
@@ -26,6 +33,9 @@ Page({
     // this.mockAuthStatus('patient')  // 测试患者
     // this.mockAuthStatus('logged')   // 测试已登录未认证
     // this.mockAuthStatus('none')     // 测试未登录
+
+    // 加载医生视频
+    this.loadDoctorVideos();
   },
 
   // 清除测试数据
@@ -285,6 +295,53 @@ Page({
           console.log("🚪 用户已退出登录");
         }
       },
+    });
+  },
+
+  // 加载医生视频
+  loadDoctorVideos() {
+    const category = this.data.activeCategory;
+    const videos = this.generateMockDoctorVideos(category);
+    this.setData({
+      doctorVideos: videos
+    });
+  },
+
+  // 生成模拟医生视频数据
+  generateMockDoctorVideos(category) {
+    const videos = [];
+    const categoryName = category === 0 ? '我创作的' : '我关注的';
+    
+    for (let i = 0; i < 4; i++) {
+      videos.push({
+        id: `${category}-${i}`,
+        cover: `https://picsum.photos/350/380?random=${category * 10 + i}`,
+        title: `${categoryName}视频 ${i + 1} - 健康科普内容`,
+        author: category === 0 ? '陶勇医生' : `医生${i + 1}`,
+        avatar: `https://picsum.photos/44/44?random=${category * 100 + i}`,
+        likes: Math.floor(Math.random() * 5000)
+      });
+    }
+    
+    return videos;
+  },
+
+  // 视频分类切换
+  onVideoCategoryTap(e) {
+    const id = e.currentTarget.dataset.id;
+    this.setData({
+      activeCategory: id
+    });
+    this.loadDoctorVideos();
+  },
+
+  // 视频点击事件
+  onVideoTap(e) {
+    const id = e.currentTarget.dataset.id;
+    console.log('点击视频:', id);
+    wx.showToast({
+      title: '视频播放功能开发中',
+      icon: 'none'
     });
   },
 

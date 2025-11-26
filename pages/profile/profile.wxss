@@ -221,10 +221,149 @@ page {
   background: #FEF2F2;
 }
 
+/* 医生视频区域 */
+.doctor-video-section {
+  background-color: #fff;
+  padding: 32rpx 20rpx;
+  margin: 0 16rpx;
+  border-radius: 24rpx;
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+}
+
+/* 分类标签样式 */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+
+  border-bottom: 2rpx solid #f0f0f0;
+  padding-bottom: 0;
+}
+
+.category-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 64rpx;
+  padding: 0 32rpx;
+  margin: 0 16rpx;
+  background-color: transparent;
+  color: #666;
+  font-size: 30rpx;
+  font-weight: 400;
+  flex-shrink: 0;
+}
+
+.category-item.active {
+  color: #000;
+  font-weight: bold;
+}
+
+.category-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48rpx;
+  height: 6rpx;
+  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+  border-radius: 3rpx;
+}
+
+/* 视频列表 - 双排布局 */
+.video-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.video-item {
+  width: calc(50% - 8rpx);
+  margin-bottom: 16rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.video-cover {
+  width: 100%;
+  height: 240rpx;
+  background-color: #f0f0f0;
+}
+
+.video-info {
+  padding: 12rpx;
+}
+
+.video-title {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.4;
+  min-height: 72rpx;
+}
+
+.video-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12rpx;
+}
+
+.video-author {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+}
+
+.author-avatar {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+  flex-shrink: 0;
+}
+
+.author-name {
+  font-size: 22rpx;
+  color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.video-likes {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 12rpx;
+}
+
+.like-icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 4rpx;
+}
+
+.likes-count {
+  font-size: 22rpx;
+  color: #999;
+}
+
 /* 已认证区域外的退出登录区域 */
 .logout-section {
   padding: 48rpx 32rpx 60rpx;
   background: transparent;
+  padding-bottom: 100rpx;
 }
 
 .logout-btn {
@@ -272,6 +411,9 @@ page {
   padding-top: 40rpx;
   overflow: hidden;
   box-sizing: border-box;
+  border-top-left-radius: 24rpx;
+  border-top-right-radius: 24rpx;
+  margin-top: 20rpx;
 }
 .doctor-info-wrapper {
   padding-left: 40rpx;
@@ -387,12 +529,24 @@ page {
   flex-shrink: 0;
 }
 
-.doctor-position {
-  font-size: 24rpx;
-  color: rgba(255, 255, 255, 0.96);
-  display: block;
+.position-row {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
   margin-bottom: 10rpx;
+}
+
+.doctor-position {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.96);
   font-weight: 500;
+}
+
+.edit-icon {
+  width: 20rpx;
+  height: 20rpx;
+  flex-shrink: 0;
+  margin-left: 8rpx;
 }
 
 .doctor-hospital-name {
