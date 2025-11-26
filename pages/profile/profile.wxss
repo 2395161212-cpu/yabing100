@@ -1,138 +1,523 @@
 /* pages/profile/profile.wxss */
 page {
-  background-color: #f5f5f5;
+  background: linear-gradient(180deg, #EFF6FF 0%, #DBEAFE 50%, #ffffff 100%);
 }
 
 .container {
   min-height: 100vh;
-  background-color: #f5f5f5;
   padding-bottom: 100rpx;
 }
 
-/* 用户信息区域 */
-.user-info-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 80rpx 40rpx 100rpx;
+/* 未认证区域 - 医疗蓝色主题 */
+.unauth-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 60rpx 40rpx;
+  overflow: hidden;
+}
+
+/* 顶部装饰圆圈 */
+.top-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400rpx;
+  overflow: hidden;
+}
+
+.decoration-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+.circle-1 {
+  width: 300rpx;
+  height: 300rpx;
+  background: #3B82F6;
+  top: -100rpx;
+  right: -50rpx;
+}
+
+.circle-2 {
+  width: 200rpx;
+  height: 200rpx;
+  background: #2563EB;
+  top: 50rpx;
+  left: -50rpx;
+}
+
+.circle-3 {
+  width: 150rpx;
+  height: 150rpx;
+  background: #60A5FA;
+  top: 200rpx;
+  right: 100rpx;
+}
+
+/* 用户卡片 */
+.user-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80rpx;
+  margin-bottom: 60rpx;
+}
+
+.avatar-large {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  border: 6rpx solid #3B82F6;
+  box-shadow: 0 8rpx 32rpx rgba(59, 130, 246, 0.3);
+  margin-bottom: 32rpx;
+  background-color: #fff;
+}
+
+.nickname-large {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #1E40AF;
+  margin-bottom: 16rpx;
+}
+
+.user-status {
+  font-size: 28rpx;
+  color: #60A5FA;
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.status-icon {
+  font-size: 32rpx;
+}
+
+/* 按钮区域 */
+.action-buttons {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  margin-bottom: 48rpx;
+}
+
+.primary-btn {
+  width: 100%;
+  height: 96rpx;
+  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+  border-radius: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(59, 130, 246, 0.3);
+  border: none;
+  padding: 0;
+}
+
+.primary-btn::after {
+  border: none;
+}
+
+.primary-btn:active {
+  opacity: 0.9;
+  transform: scale(0.98);
+}
+
+.btn-icon {
+  font-size: 36rpx;
+  margin-right: 12rpx;
+}
+
+.btn-text {
+  font-size: 32rpx;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* 权益卡片 */
+.benefits-card {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(59, 130, 246, 0.1);
+  border: 2rpx solid #DBEAFE;
+}
+
+.benefits-title {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #1E40AF;
+  margin-bottom: 32rpx;
+}
+
+.title-icon {
+  font-size: 36rpx;
+  margin-right: 12rpx;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24rpx;
+}
+
+.benefit-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.benefit-emoji {
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+}
+
+.benefit-name {
+  font-size: 24rpx;
+  color: #60A5FA;
+  text-align: center;
+}
+
+/* 未认证区域内的退出登录按钮 */
+.logout-btn-inline {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 80rpx;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2rpx solid #DBEAFE;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #EF4444;
+  padding: 0;
+  margin-top: 48rpx;
+  box-shadow: 0 4rpx 16rpx rgba(239, 68, 68, 0.1);
+}
+
+.logout-btn-inline::after {
+  border: none;
+}
+
+.logout-btn-inline:active {
+  background: #FEF2F2;
+}
+
+/* 已认证区域外的退出登录区域 */
+.logout-section {
+  padding: 48rpx 32rpx 60rpx;
+  background: transparent;
+}
+
+.logout-btn {
+  width: 100%;
+  height: 88rpx;
+  background: #fff;
+  border: 2rpx solid #DBEAFE;
+  border-radius: 44rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  color: #EF4444;
+  padding: 0;
+  box-shadow: 0 4rpx 20rpx rgba(239, 68, 68, 0.12);
+}
+
+.logout-btn::after {
+  border: none;
+}
+
+.logout-btn:active {
+  background: #FEF2F2;
+  transform: scale(0.98);
+}
+
+.logout-icon {
+  margin-right: 12rpx;
+  font-size: 32rpx;
+}
+
+/* 已认证医生信息区域 */
+.doctor-info-section {
+  padding: 0;
+  min-height: 100vh;
+
+  background: linear-gradient(180deg, #EFF6FF 0%, #ffffff 100%);
+}
+
+.doctor-card {
+  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+  position: relative;
+  box-shadow: 0 8rpx 32rpx rgba(59, 130, 246, 0.25);
+  border-radius: 0 0 40rpx 40rpx;
+  padding-top: 40rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.doctor-info-wrapper {
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+  /* border: 2rpx solid red; */
+}
+
+.doctor-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400rpx;
+  height: 400rpx;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(30%, -30%);
+}
+
+/* 顶部操作按钮 */
+.card-actions {
+  position: absolute;
+  top: 36rpx;
+  right: 32rpx;
+  display: flex;
+  gap: 20rpx;
+  z-index: 10;
+}
+
+.edit-btn,
+.notification-btn {
+  width: 68rpx;
+  height: 68rpx;
+  /* background: rgba(255, 255, 255, 0.25); */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  backdrop-filter: blur(10rpx);
+  /* border: 1rpx solid rgba(255, 255, 255, 0.3); */
+  transition: all 0.2s;
+}
+
+.edit-btn:active,
+.notification-btn:active {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(0.95);
+}
+
+.notification-btn {
   position: relative;
 }
 
-.user-info {
+.bell-icon {
+  width: 54rpx;
+  height: 54rpx;
+}
+
+.notification-dot {
+  position: absolute;
+  top: 4rpx;
+  right: 4rpx;
+  width: 18rpx;
+  height: 18rpx;
+  background: #EF4444;
+  border-radius: 50%;
+  border: 3rpx solid rgba(59, 130, 246, 0.8);
+  box-shadow: 0 2rpx 8rpx rgba(239, 68, 68, 0.4);
+}
+
+/* 医生信息 */
+.doctor-info {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 32rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.doctor-avatar-large {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  border: 6rpx solid rgba(255, 255, 255, 0.7);
+  margin-right: 28rpx;
+  background: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+}
+
+.doctor-details {
+  flex: 1;
+  padding-top: 16rpx;
+}
+
+.name-row {
   display: flex;
   align-items: center;
 }
 
-.avatar {
+.doctor-name-large {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-right: 12rpx;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.verify-badge {
+  width: 44rpx;
+  height: 44rpx;
+  flex-shrink: 0;
+}
+
+.doctor-position {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.96);
+  display: block;
+  margin-bottom: 10rpx;
+  font-weight: 500;
+}
+
+.doctor-hospital-name {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.88);
+  display: block;
+  line-height: 1.4;
+}
+
+/* 权益提示 */
+.privilege-hint {
+  background: linear-gradient(180deg, #3B82F6 0%, #ffffff 100%);
+  border-radius: 24rpx;
+  position: relative;
+  z-index: 1;
+  padding-bottom: 40rpx;
+  border: 2rpx solid #fff;
+}
+
+.privilege-text {
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 400;
+  text-align: left;
+  display: block;
+  margin-left: 40rpx;
+  color: #000;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+/* 功能按钮组 */
+.function-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 0 8rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.function-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  flex: 1;
+  max-width: 120rpx;
+}
+
+.function-icon {
+  width: 100rpx;
+  height: 100rpx;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
+}
+
+.function-item:active .function-icon {
+  transform: scale(0.95);
+}
+
+.icon-image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.function-label {
+  font-size: 24rpx;
+  color: #000;
+  text-align: center;
+  font-weight: 400;
+}
+
+/* 已认证患者信息区域 */
+.patient-info-section {
+  background: linear-gradient(135deg, #60A5FA 0%, #93C5FD 100%);
+  padding: 80rpx 40rpx 100rpx;
+  position: relative;
+}
+
+.patient-info-section .user-info {
+  display: flex;
+  align-items: center;
+}
+
+.patient-info-section .avatar {
   width: 130rpx;
   height: 130rpx;
   border-radius: 50%;
-  border: 4rpx solid rgba(255, 255, 255, 0.4);
+  border: 4rpx solid rgba(255, 255, 255, 0.6);
   margin-right: 30rpx;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #fff;
 }
 
-.user-detail {
+.patient-info-section .user-detail {
   display: flex;
   flex-direction: column;
   color: #fff;
 }
 
-.nickname {
+.patient-info-section .nickname {
   font-size: 40rpx;
   font-weight: bold;
   margin-bottom: 10rpx;
-}
-
-.user-id {
-  font-size: 26rpx;
-  opacity: 0.8;
-}
-
-.login-btn {
-  margin-top: 40rpx;
-  background-color: rgba(255, 255, 255, 0.3);
   color: #fff;
-  border: 2rpx solid rgba(255, 255, 255, 0.6);
-  border-radius: 50rpx;
-  width: 280rpx;
-  height: 80rpx;
-  line-height: 80rpx;
-  font-size: 30rpx;
-  padding: 0;
+}
+
+.patient-info-section .user-id {
+  font-size: 26rpx;
+  color: #fff;
+  opacity: 1;
+}
+
+.patient-badge {
+  color: #fff;
+  font-size: 26rpx;
   font-weight: 500;
-}
-
-.login-btn::after {
-  border: none;
-}
-
-.login-btn:active {
-  background-color: rgba(255, 255, 255, 0.4);
-}
-
-/* 功能菜单区域 */
-.menu-section {
-  margin-top: 10rpx;
-  padding: 0 30rpx;
-}
-
-.menu-group {
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 4rpx 16rpx;
   border-radius: 20rpx;
-  margin-bottom: 20rpx;
-  overflow: hidden;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+  display: inline-block;
 }
 
-.menu-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 35rpx 30rpx;
-  border-bottom: 1rpx solid #f0f0f0;
-  transition: background-color 0.2s;
-}
-
-.menu-item:last-child {
-  border-bottom: none;
-}
-
-.menu-item:active {
-  background-color: #f8f8f8;
-}
-
-.menu-item-left {
-  display: flex;
-  align-items: center;
-}
-
-.menu-icon {
-  font-size: 40rpx;
-  margin-right: 20rpx;
-}
-
-.menu-title {
-  font-size: 30rpx;
-  color: #333;
-}
-
-.menu-arrow {
-  font-size: 48rpx;
-  color: #ccc;
-  font-weight: 300;
-}
-
-/* 版本信息 */
-.version-info {
-  text-align: center;
-  padding: 40rpx 0;
-}
-
-.version-text {
-  font-size: 24rpx;
-  color: #999;
-}
-
-/* 退出登录文字颜色 */
-.logout-text {
-  color: #ff4d4f;
-}

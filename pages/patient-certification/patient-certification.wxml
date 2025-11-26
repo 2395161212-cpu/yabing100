@@ -1,0 +1,59 @@
+<!--pages/patient-certification/patient-certification.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="icon">👤</view>
+    <text class="header-title">患者认证</text>
+    <text class="header-desc">完成认证，享受更多健康服务</text>
+  </view>
+
+  <view class="form-section">
+    <view class="form-card">
+      <view class="form-item">
+        <view class="form-label">
+          <text class="required">*</text>
+          <text>手机号</text>
+        </view>
+        <input 
+          class="form-input" 
+          placeholder="请输入手机号" 
+          type="number"
+          maxlength="11"
+          value="{{phone}}"
+          bindinput="onPhoneInput"
+        />
+      </view>
+
+      <view class="benefits-section">
+        <view class="benefits-title">认证后可享受</view>
+        <view class="benefit-item">
+          <text class="benefit-icon">✓</text>
+          <text class="benefit-text">在线咨询专业医生</text>
+        </view>
+        <view class="benefit-item">
+          <text class="benefit-icon">✓</text>
+          <text class="benefit-text">学习健康科普课程</text>
+        </view>
+        <view class="benefit-item">
+          <text class="benefit-icon">✓</text>
+          <text class="benefit-text">个人健康管理服务</text>
+        </view>
+        <view class="benefit-item">
+          <text class="benefit-icon">✓</text>
+          <text class="benefit-text">专属健康资讯推送</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-section">
+    <button class="submit-btn" bindtap="submitCertification">
+      立即认证
+    </button>
+    <view class="tips">
+      <text class="tips-icon">🔒</text>
+      <text class="tips-text">您的个人信息将被严格保密</text>
+    </view>
+  </view>
+</view>
+

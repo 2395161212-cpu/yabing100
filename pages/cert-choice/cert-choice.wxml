@@ -1,0 +1,43 @@
+<!--pages/cert-choice/cert-choice.wxml-->
+<view class="container">
+  <view class="title">请选择认证类型</view>
+  <view class="subtitle">选择适合您的身份进行认证</view>
+
+  <view class="cert-options">
+    <view class="cert-card" bindtap="chooseDoctorCert">
+      <view class="cert-icon doctor">👨‍⚕️</view>
+      <view class="cert-title">认证医生</view>
+      <view class="cert-desc">专业医生，提供健康科普内容</view>
+      <!-- <view class="cert-benefits">
+        <text class="benefit-item">✓ 发布专业内容</text>
+        <text class="benefit-item">✓ 获得认证标识</text>
+        <text class="benefit-item">✓ 积分奖励</text>
+      </view> -->
+      <view class="cert-btn doctor-btn">
+        <text>立即认证</text>
+        <text class="arrow">→</text>
+      </view>
+    </view>
+
+    <view class="cert-card" bindtap="choosePatientCert">
+      <view class="cert-icon patient">👤</view>
+      <view class="cert-title">认证患者</view>
+      <view class="cert-desc">普通用户，享受健康服务</view>
+      <!-- <view class="cert-benefits">
+        <text class="benefit-item">✓ 在线咨询</text>
+        <text class="benefit-item">✓ 学习课程</text>
+        <text class="benefit-item">✓ 健康管理</text>
+      </view> -->
+      <view class="cert-btn patient-btn">
+        <text>立即认证</text>
+        <text class="arrow">→</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- <view class="tips">
+    <text class="tips-icon">ℹ️</text>
+    <text class="tips-text">认证后可享受更多专属权益</text>
+  </view> -->
+</view>
+

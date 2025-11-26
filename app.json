@@ -4,7 +4,10 @@
     "pages/discover/discover",
     "pages/profile/profile",
     "pages/logs/logs",
-    "pages/video-player/video-player"
+    "pages/video-player/video-player",
+    "pages/cert-choice/cert-choice",
+    "pages/doctor-certification/doctor-certification",
+    "pages/patient-certification/patient-certification"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -13,6 +16,7 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
+    "custom": true,
     "color": "#6F6F6F",
     "selectedColor": "#1296DB",
     "backgroundColor": "#ffffff",

@@ -1,0 +1,189 @@
+<!--pages/doctor-certification/doctor-certification.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="header-title">医生认证申请</text>
+    <text class="header-desc">请填写真实信息，我们将在3个工作日内完成审核</text>
+  </view>
+
+  <view class="form-section">
+    <!-- 姓名 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>姓名</text>
+      </view>
+      <input 
+        class="form-input" 
+        placeholder="请输入您的真实姓名" 
+        value="{{formData.name}}"
+        bindinput="onNameInput"
+      />
+    </view>
+
+    <!-- 联系电话 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>联系电话</text>
+      </view>
+      <input 
+        class="form-input" 
+        placeholder="请输入联系电话" 
+        type="number"
+        maxlength="11"
+        value="{{formData.phone}}"
+        bindinput="onPhoneInput"
+      />
+    </view>
+
+    <!-- 地址信息 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>地址信息</text>
+      </view>
+      <input 
+        class="form-input" 
+        placeholder="请输入详细地址" 
+        value="{{formData.address}}"
+        bindinput="onAddressInput"
+      />
+    </view>
+
+    <!-- 医院 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>医院</text>
+      </view>
+      <input 
+        class="form-input" 
+        placeholder="请输入所在医院全称" 
+        value="{{formData.hospital}}"
+        bindinput="onHospitalInput"
+      />
+    </view>
+
+    <!-- 性别 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>性别</text>
+      </view>
+      <picker 
+        class="form-picker" 
+        mode="selector" 
+        range="{{genderOptions}}" 
+        value="{{genderIndex}}"
+        bindchange="onGenderChange"
+      >
+        <view class="picker-content">
+          <text class="{{formData.gender ? 'picker-text' : 'picker-placeholder'}}">
+            {{formData.gender || '请选择性别'}}
+          </text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 职务 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>职务</text>
+      </view>
+      <input 
+        class="form-input" 
+        placeholder="如：科室主任、医师" 
+        value="{{formData.position}}"
+        bindinput="onPositionInput"
+      />
+    </view>
+
+    <!-- 所属科室 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>所属科室</text>
+      </view>
+      <picker 
+        class="form-picker" 
+        mode="selector" 
+        range="{{departmentOptions}}" 
+        value="{{departmentIndex}}"
+        bindchange="onDepartmentChange"
+      >
+        <view class="picker-content">
+          <text class="{{formData.department ? 'picker-text' : 'picker-placeholder'}}">
+            {{formData.department || '请选择所属科室'}}
+          </text>
+          <text class="picker-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 职称 -->
+    <view class="form-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>职称</text>
+      </view>
+      <input 
+        class="form-input" 
+        placeholder="如：主任医师、副主任医师" 
+        value="{{formData.title}}"
+        bindinput="onTitleInput"
+      />
+    </view>
+
+    <!-- 医师职业资格证 -->
+    <view class="form-item photo-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>医师职业资格证</text>
+      </view>
+      <view class="photo-upload" bindtap="chooseLicensePhoto">
+        <image 
+          wx:if="{{formData.licensePhoto}}" 
+          src="{{formData.licensePhoto}}" 
+          class="photo-preview"
+          mode="aspectFill"
+        ></image>
+        <view wx:else class="photo-placeholder">
+          <text class="upload-icon">📷</text>
+          <text class="upload-text">点击上传资格证照片</text>
+          <text class="upload-hint">请上传清晰的医师职业资格证照片</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 简介 -->
+    <view class="form-item textarea-item">
+      <view class="form-label">
+        <text class="required">*</text>
+        <text>简介</text>
+      </view>
+      <textarea 
+        class="form-textarea" 
+        placeholder="请输入个人简介，包括专业特长、擅长领域等（200字以内）" 
+        maxlength="200"
+        value="{{formData.introduction}}"
+        bindinput="onIntroductionInput"
+        show-confirm-bar="{{false}}"
+      />
+      <view class="textarea-count">{{formData.introduction.length}}/200</view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-section">
+    <button class="submit-btn" bindtap="submitCertification">
+      提交认证申请
+    </button>
+    <view class="tips">
+      <text class="tips-icon">ℹ️</text>
+      <text class="tips-text">提交后不可修改，请确保信息准确无误</text>
+    </view>
+  </view>
+</view>
+

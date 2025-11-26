@@ -1,5 +1,12 @@
 <!--pages/home/home.wxml-->
-<scroll-view class="container" scroll-y bindscrolltolower="loadMore">
+<!-- 自定义导航栏 -->
+<view class="custom-navbar">
+  <view class="navbar-content" style="padding-top: {{statusBarHeight}}px;">
+    <image src="/images/logo.png" mode="aspectFit" class="navbar-logo"></image>
+  </view>
+</view>
+
+<scroll-view class="container" scroll-y bindscrolltolower="loadMore" style="padding-top: {{navBarHeight}}px;">
   <!-- Banner 轮播 -->
 
   <view class="banner">

@@ -9,12 +9,27 @@ Page({
     page: 1,
     pageSize: 10,
     loading: false,
-    hasMore: true
+    hasMore: true,
+    statusBarHeight: 0, // 状态栏高度
+    navBarHeight: 0 // 整个导航栏高度（状态栏 + 自定义导航栏）
   },
 
   onLoad(options) {
+    this.setNavBarHeight();
     this.initData();
     this.loadVideos();
+  },
+
+  // 设置导航栏高度
+  setNavBarHeight() {
+    const systemInfo = wx.getSystemInfoSync();
+    const statusBarHeight = systemInfo.statusBarHeight || 0;
+    const navBarHeight = statusBarHeight + 44; // 44 是导航栏内容区域的高度
+    
+    this.setData({
+      statusBarHeight: statusBarHeight,
+      navBarHeight: navBarHeight
+    });
   },
 
   // 初始化Banner和金刚位数据
@@ -198,7 +213,11 @@ Page({
   },
 
   onShow() {
-    
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 0
+      })
+    }
   },
 
   onHide() {
