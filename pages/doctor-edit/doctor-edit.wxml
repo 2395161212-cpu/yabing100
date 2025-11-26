@@ -1,0 +1,98 @@
+<!--pages/doctor-edit/doctor-edit.wxml-->
+<view class="container">
+  <!-- 医生头像卡片 -->
+  <view class="doctor-header">
+    <image class="doctor-avatar" src="{{doctorInfo.photoUrl}}" mode="cover"></image>
+    <view class="doctor-info">
+      <view class="name-row">
+        <text class="doctor-name">{{doctorInfo.name}}</text>
+        <image class="verify-badge" src="/images/doctor-certification.png" mode="aspectFit"></image>
+      </view>
+      <image class="edit-avatar-btn" src="/images/edit.png" mode="aspectFit" bindtap="enterEditMode"></image>
+    </view>
+  </view>
+
+  <!-- 医院/科室/职称信息 -->
+  <view class="info-section">
+    <!-- 医院 -->
+    <view class="info-item">
+      <text class="info-label">医院</text>
+      <view class="info-right" wx:if="{{!isEditMode}}">
+        <text class="info-value">{{formData.hospital || '请完善医院信息'}}</text>
+        <text class="arrow-right">›</text>
+      </view>
+      <input 
+        wx:else
+        class="edit-input" 
+        placeholder="请输入医院名称" 
+        value="{{formData.hospital}}"
+        bindinput="onInputChange"
+        data-field="hospital"
+      />
+    </view>
+
+    <!-- 科室 -->
+    <view class="info-item">
+      <text class="info-label">科室</text>
+      <view class="info-right" wx:if="{{!isEditMode}}">
+        <text class="info-value">{{formData.department || '请完善科室信息'}}</text>
+        <text class="arrow-right">›</text>
+      </view>
+      <input 
+        wx:else
+        class="edit-input" 
+        placeholder="请输入科室名称" 
+        value="{{formData.department}}"
+        bindinput="onInputChange"
+        data-field="department"
+      />
+    </view>
+
+    <!-- 职称 -->
+    <view class="info-item">
+      <text class="info-label">职称</text>
+      <view class="info-right" wx:if="{{!isEditMode}}">
+        <text class="info-value">{{formData.title || '请完善职称信息'}}</text>
+        <text class="arrow-right">›</text>
+      </view>
+      <input 
+        wx:else
+        class="edit-input" 
+        placeholder="请输入职称" 
+        value="{{formData.title}}"
+        bindinput="onInputChange"
+        data-field="title"
+      />
+    </view>
+  </view>
+
+  <!-- 账号绑定标题 -->
+  <view class="section-title-wrapper">
+    <text class="section-title">账号绑定</text>
+  </view>
+
+  <!-- 账号绑定信息 -->
+  <view class="info-section">
+    <view class="info-item">
+      <text class="info-label">手机</text>
+      <view class="info-right">
+        <text class="info-value">{{formData.phone}}</text>
+        <text class="arrow-right">›</text>
+      </view>
+    </view>
+
+    <view class="info-item">
+      <text class="info-label">邮箱</text>
+      <view class="info-right">
+        <text class="info-value">{{formData.email}}</text>
+        <text class="arrow-right">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="save-section" wx:if="{{isEditMode}}">
+    <button class="save-all-btn" bindtap="saveAllInfo">保存</button>
+  </view>
+</view>
+

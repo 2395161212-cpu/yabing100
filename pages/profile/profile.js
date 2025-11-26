@@ -257,6 +257,13 @@ Page({
     });
   },
 
+  // 去编辑页面
+  goToEdit() {
+    wx.navigateTo({
+      url: "/pages/doctor-edit/doctor-edit",
+    });
+  },
+
   // 退出登录
   logout() {
     wx.showModal({

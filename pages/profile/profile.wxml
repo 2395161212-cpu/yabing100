@@ -97,7 +97,7 @@
           </view>
           <view class="position-row">
             <text class="doctor-position">{{doctorInfo.department}} | {{doctorInfo.title}}</text>
-            <image class="edit-icon" src="/images/edit.png" mode="aspectFit"></image>
+            <image class="edit-icon" src="/images/edit.png" mode="aspectFit" bindtap="goToEdit"></image>
           </view>
           <text class="doctor-hospital-name">{{doctorInfo.hospital}}</text>
         </view>
