@@ -1,0 +1,86 @@
+<!--pages/video-player/video-player.wxml-->
+<view class="container">
+  <!-- 返回按钮 -->
+  <view class="back-btn" bindtap="onBackTap">
+    <text class="back-icon">←</text>
+  </view>
+  
+  <swiper 
+    class="video-swiper" 
+    vertical 
+    current="{{currentIndex}}" 
+    bindchange="onSwiperChange"
+    circular="{{false}}"
+  >
+    <swiper-item wx:for="{{videoList}}" wx:key="id" class="video-item">
+      <video 
+        id="video-{{index}}"
+        src="{{item.videoUrl}}"
+        poster="{{item.cover}}"
+        class="video-player"
+        object-fit="contain"
+        show-center-play-btn="{{false}}"
+        show-play-btn="{{true}}"
+        controls="{{true}}"
+        autoplay="{{currentIndex === index}}"
+        bindended="onVideoEnded"
+        bindplay="onVideoPlay"
+        bindpause="onVideoPause"
+        binderror="onVideoError"
+        bindwaiting="onVideoWaiting"
+        bindloadeddata="onVideoLoaded"
+        data-index="{{index}}"
+      ></video>
+      
+      <!-- 视频加载状态提示 -->
+      <view class="video-loading" wx:if="{{currentIndex === index && videoLoading}}">
+        <text>视频加载中...</text>
+      </view>
+      
+      <!-- 视频错误提示 -->
+      <view class="video-error" wx:if="{{videoError && currentIndex === index}}">
+        <text>❌</text>
+        <text class="error-text">视频加载失败</text>
+        <text class="error-detail">{{videoErrorMsg}}</text>
+      </view>
+      
+      <!-- 视频信息层 -->
+      <view class="video-info-overlay">
+        <view class="video-meta">
+          <text class="video-title">{{item.title}}</text>
+          <view class="video-author-info">
+            <text class="author-name">@{{item.author}}</text>
+            <text class="video-desc" wx:if="{{item.description}}">{{item.description}}</text>
+          </view>
+        </view>
+        
+        <!-- 右侧操作栏 -->
+        <view class="video-actions">
+          <view class="action-item" bindtap="onLikeTap" data-index="{{index}}">
+            <text class="action-icon">{{item.liked ? '❤️' : '🤍'}}</text>
+            <text class="action-text">{{item.likes}}</text>
+          </view>
+          <view class="action-item" bindtap="onCommentTap" data-index="{{index}}">
+            <text class="action-icon">💬</text>
+            <text class="action-text">{{item.comments}}</text>
+          </view>
+          <view class="action-item" bindtap="onShareTap" data-index="{{index}}">
+            <text class="action-icon">📤</text>
+            <text class="action-text">分享</text>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 滑动提示 -->
+      <view class="swipe-tip" wx:if="{{showTip && currentIndex === index}}">
+        <text>{{tipText}}</text>
+      </view>
+    </swiper-item>
+  </swiper>
+  
+  <!-- 加载提示 -->
+  <view class="loading-toast" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>
+

@@ -1,0 +1,238 @@
+/* pages/video-player/video-player.wxss */
+page {
+  background-color: #000;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+  position: relative;
+}
+
+/* 返回按钮 */
+.back-btn {
+  position: fixed;
+  top: 60rpx;
+  left: 30rpx;
+  width: 80rpx;
+  height: 80rpx;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(10rpx);
+}
+
+.back-icon {
+  color: #fff;
+  font-size: 48rpx;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* Swiper 样式 */
+.video-swiper {
+  width: 100%;
+  height: 100vh;
+}
+
+.video-item {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* 视频播放器 */
+.video-player {
+  width: 100%;
+  height: 100vh;
+  background-color: #000;
+}
+
+/* 视频信息遮罩层 */
+.video-info-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40rpx 30rpx;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.video-info-overlay .video-meta,
+.video-info-overlay .video-actions {
+  pointer-events: auto;
+}
+
+/* 视频元信息 */
+.video-meta {
+  flex: 1;
+  margin-right: 20rpx;
+}
+
+.video-title {
+  display: block;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: bold;
+  line-height: 1.4;
+  margin-bottom: 16rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.5);
+}
+
+.video-author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.author-name {
+  color: #fff;
+  font-size: 28rpx;
+  margin-bottom: 8rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.5);
+}
+
+.video-desc {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 26rpx;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.5);
+}
+
+/* 右侧操作栏 */
+.video-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40rpx;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.action-icon {
+  font-size: 64rpx;
+  filter: drop-shadow(0 2rpx 4rpx rgba(0, 0, 0, 0.5));
+}
+
+.action-text {
+  color: #fff;
+  font-size: 24rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.5);
+}
+
+/* 滑动提示 */
+.swipe-tip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 20rpx 40rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  z-index: 100;
+  animation: fadeInOut 1.5s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+/* 加载提示 */
+.loading-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 20rpx 40rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  z-index: 1000;
+}
+
+/* 视频加载状态 */
+.video-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 30rpx 50rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  z-index: 50;
+}
+
+/* 视频错误提示 */
+.video-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 40rpx;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+  min-width: 400rpx;
+}
+
+.video-error text:first-child {
+  font-size: 80rpx;
+}
+
+.error-text {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.error-detail {
+  font-size: 24rpx;
+  color: #ccc;
+  text-align: center;
+}
+

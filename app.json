@@ -3,7 +3,8 @@
     "pages/home/home",
     "pages/discover/discover",
     "pages/profile/profile",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/video-player/video-player"
   ],
   "window": {
     "backgroundTextStyle": "light",

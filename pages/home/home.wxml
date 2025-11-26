@@ -1,9 +1,44 @@
 <!--pages/home/home.wxml-->
-<view class="container">
-  <view class="placeholder-content">
-    <view class="icon">🏠</view>
-    <text class="title">首页</text>
-    <text class="desc">首页内容开发中...</text>
+<scroll-view class="container" scroll-y bindscrolltolower="loadMore">
+  <!-- Banner 轮播 -->
+  <swiper class="banner" indicator-dots autoplay interval="3000" circular>
+    <swiper-item wx:for="{{banners}}" wx:key="id">
+      <image src="{{item.image}}" mode="aspectFill" class="banner-image"></image>
+    </swiper-item>
+  </swiper>
+
+  <!-- 金刚位 -->
+  <view class="icon-nav">
+    <view class="nav-item" wx:for="{{navItems}}" wx:key="id" bindtap="onNavTap" data-id="{{item.id}}">
+      <view class="nav-icon">{{item.icon}}</view>
+      <text class="nav-text">{{item.name}}</text>
+    </view>
   </view>
-</view>
+
+  <!-- 视频列表 -->
+  <view class="video-section">
+    <view class="section-title">推荐视频</view>
+    <view class="video-list">
+      <view class="video-item" wx:for="{{videos}}" wx:key="id" bindtap="onVideoTap" data-id="{{item.id}}">
+        <image src="{{item.cover}}" mode="aspectFill" class="video-cover"></image>
+        <view class="video-duration">{{item.duration}}</view>
+        <view class="video-info">
+          <text class="video-title">{{item.title}}</text>
+          <view class="video-meta">
+            <text class="video-author">{{item.author}}</text>
+            <text class="video-views">{{item.views}}次观看</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 加载状态 -->
+    <view class="loading-status" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+    <view class="loading-status" wx:if="{{!hasMore && videos.length > 0}}">
+      <text>没有更多了</text>
+    </view>
+  </view>
+</scroll-view>
 
