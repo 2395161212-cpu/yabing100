@@ -1,32 +1,48 @@
 <!--pages/home/home.wxml-->
 <scroll-view class="container" scroll-y bindscrolltolower="loadMore">
   <!-- Banner 轮播 -->
-  <swiper class="banner" indicator-dots autoplay interval="3000" circular>
-    <swiper-item wx:for="{{banners}}" wx:key="id">
-      <image src="{{item.image}}" mode="aspectFill" class="banner-image"></image>
-    </swiper-item>
-  </swiper>
+
+  <view class="banner">
+    <image src="{{banners[0].image}}" mode="aspectFill" class="banner-image"></image>
+  </view>
 
   <!-- 金刚位 -->
   <view class="icon-nav">
     <view class="nav-item" wx:for="{{navItems}}" wx:key="id" bindtap="onNavTap" data-id="{{item.id}}">
-      <view class="nav-icon">{{item.icon}}</view>
+      <view class="nav-icon">
+        <image src="{{item.icon}}" mode="aspectFit" class="nav-icon-img"></image>
+      </view>
       <text class="nav-text">{{item.name}}</text>
     </view>
   </view>
 
   <!-- 视频列表 -->
   <view class="video-section">
-    <view class="section-title">推荐视频</view>
+    <!-- 分类标签 -->
+    <scroll-view class="category-tabs" scroll-x enable-flex>
+      <view class="category-item {{activeCategory === item.id ? 'active' : ''}}" 
+            wx:for="{{categories}}" 
+            wx:key="id" 
+            bindtap="onCategoryTap" 
+            data-id="{{item.id}}">
+        {{item.name}}
+      </view>
+    </scroll-view>
+    
     <view class="video-list">
       <view class="video-item" wx:for="{{videos}}" wx:key="id" bindtap="onVideoTap" data-id="{{item.id}}">
         <image src="{{item.cover}}" mode="aspectFill" class="video-cover"></image>
-        <view class="video-duration">{{item.duration}}</view>
         <view class="video-info">
           <text class="video-title">{{item.title}}</text>
           <view class="video-meta">
-            <text class="video-author">{{item.author}}</text>
-            <text class="video-views">{{item.views}}次观看</text>
+            <view class="video-author">
+              <image src="{{item.avatar}}" mode="aspectFill" class="author-avatar"></image>
+              <text class="author-name">{{item.author}}</text>
+            </view>
+            <view class="video-likes">
+              <image src="/images/like.png" mode="aspectFit" class="like-icon"></image>
+              <text class="likes-count">{{item.likes}}</text>
+            </view>
           </view>
         </view>
       </view>

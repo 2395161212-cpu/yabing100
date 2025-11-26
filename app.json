@@ -13,22 +13,28 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "color": "#7A7E83",
+    "color": "#6F6F6F",
     "selectedColor": "#1296DB",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/home/home",
-        "text": "首页"
+        "text": "健康科普",
+        "iconPath": "images/popular-science.png",
+        "selectedIconPath": "images/popular-science.png"
       },
       {
         "pagePath": "pages/discover/discover",
-        "text": "发现"
+        "text": "学习中心",
+        "iconPath": "images/learn-center.png",
+        "selectedIconPath": "images/learn-center.png"
       },
       {
         "pagePath": "pages/profile/profile",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "images/my.png",
+        "selectedIconPath": "images/my.png"
       }
     ]
   },

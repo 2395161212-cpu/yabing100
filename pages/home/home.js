@@ -3,6 +3,8 @@ Page({
   data: {
     banners: [],
     navItems: [],
+    categories: [],
+    activeCategory: 0,
     videos: [],
     page: 1,
     pageSize: 10,
@@ -17,23 +19,31 @@ Page({
 
   // 初始化Banner和金刚位数据
   initData() {
-    // Banner数据（可以替换成真实图片地址）
+    // Banner数据
     const banners = [
-      { id: 1, image: 'https://picsum.photos/750/300?random=1' },
-      { id: 2, image: 'https://picsum.photos/750/300?random=2' },
-      { id: 3, image: 'https://picsum.photos/750/300?random=3' }
+      { id: 1, image: '/images/banner.png' }
     ];
 
     // 金刚位数据
     const navItems = [
-      { id: 1, icon: '🎬', name: '电影' },
-      { id: 2, icon: '📺', name: '电视剧' },
-      { id: 3, icon: '🎵', name: '音乐' }
+      { id: 1, icon: '/images/kingkongone.png', name: '科普名医' },
+      { id: 2, icon: '/images/kingkongtwo.png', name: '科普之星' },
+      { id: 3, icon: '/images/kingkongthree.png', name: 'CHTV' }
+    ];
+
+    // 分类标签数据
+    const categories = [
+      { id: 0, name: '推荐' },
+      { id: 1, name: '健康科普' },
+      { id: 2, name: '名医讲堂' },
+      { id: 3, name: '养生保健' },
+      { id: 4, name: '疾病预防' }
     ];
 
     this.setData({
       banners,
-      navItems
+      navItems,
+      categories
     });
   },
 
@@ -109,11 +119,13 @@ Page({
       videos.push({
         id: index,
         videoUrl: localVideo.videoUrl,
-        cover: `https://picsum.photos/350/200?random=${index}`,
-        title: `视频 ${index} - ${fileName}.mp4`,
-        author: `UP主${index}`,
+        cover: `https://picsum.photos/350/380?random=${index}`,
+        title: `健康科普知识第${index}期 - 专家讲解${fileName}相关医学知识`,
+        author: `张医生${index}`,
+        avatar: `https://picsum.photos/44/44?random=${index + 1000}`,
         description: `这是 ${fileName}.mp4 视频（编号${index}）`,
         views: Math.floor(Math.random() * 10000),
+        likes: Math.floor(Math.random() * 5000),
         duration: `${Math.floor(Math.random() * 10)}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`
       });
       
@@ -137,6 +149,18 @@ Page({
       title: `点击了${nav.name}`,
       icon: 'none'
     });
+  },
+
+  // 分类标签点击事件
+  onCategoryTap(e) {
+    const id = e.currentTarget.dataset.id;
+    this.setData({
+      activeCategory: id,
+      videos: [],
+      page: 1,
+      hasMore: true
+    });
+    this.loadVideos();
   },
 
   // 视频点击事件
