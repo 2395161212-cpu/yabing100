@@ -1,0 +1,103 @@
+<view class="page-container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-nav" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content">
+      <view class="nav-back" bindtap="goBack">
+        <image src="/images/goback.png" mode="aspectFit"></image>
+      </view>
+      <text class="nav-title">{{doctor.hospital || '医院名称'}}</text>
+    </view>
+  </view>
+
+  <!-- 占位高度 -->
+  <view style="height: {{navBarHeight}}px;"></view>
+
+  <!-- 医生信息头部卡片 -->
+  <view class="header-card">
+    <view class="header-content">
+      <view class="doctor-info-left">
+        <view class="name-row">
+          <text class="doctor-name">{{doctor.name}}</text>
+          <image class="cert-badge" src="/images/doctor-certification.png" mode="aspectFit"></image>
+        </view>
+        <view class="title-dept">
+          <text>{{doctor.title}}</text>
+          <text class="separator">|</text>
+          <text>{{doctor.department}}</text>
+        </view>
+        <view class="intro-text">{{doctor.introduction}}</view>
+        <view class="tag-list">
+          <text class="tag-item">{{doctor.hospital}}</text>
+          <text class="tag-item">{{doctor.tag}}</text>
+        </view>
+        <!-- 数据统计 -->
+        <view class="stats-row">
+          <view class="stat-item">
+            <text class="stat-num">{{doctor.works || 28}}</text>
+            <text class="stat-label">作品</text>
+          </view>
+          <view class="stat-item">
+            <text class="stat-num">{{doctor.fans || '1.7k'}}</text>
+            <text class="stat-label">粉丝</text>
+          </view>
+          <view class="stat-item">
+            <text class="stat-num">{{doctor.collects || '12.6万'}}</text>
+            <text class="stat-label">收藏</text>
+          </view>
+        </view>
+      </view>
+      <view class="doctor-avatar-wrap">
+        <image class="doctor-avatar" src="{{doctor.avatar}}" mode="aspectFill"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作栏 -->
+  <view class="action-bar">
+    <view class="action-item">
+      <image class="action-icon" src="/images/invitation.png" mode="aspectFit"></image>
+    </view>
+    <view class="action-item">
+      <image class="action-icon" src="/images/guoup.png" mode="aspectFit"></image>
+    </view>
+    <view class="action-item">
+      <image class="action-icon" src="/images/message.png" mode="aspectFit"></image>
+    </view>
+    <view class="follow-btn" bindtap="onFollow">
+      <image class="follow-icon" src="/images/concern.png" mode="aspectFit"></image>
+    </view>
+  </view>
+
+  <!-- 他的创作 -->
+  <view class="creation-section">
+    <view class="section-title">他的创作</view>
+    <view class="video-grid">
+      <view class="video-item" wx:for="{{videos}}" wx:key="id" bindtap="onVideoTap" data-index="{{index}}">
+        <view class="video-cover-wrap">
+          <image class="video-cover" src="{{item.cover}}" mode="aspectFill"></image>
+          <view class="video-badge" wx:if="{{item.isTop}}">置顶</view>
+          <view class="video-title-overlay">{{item.title}}</view>
+        </view>
+        <view class="video-info">
+          <text class="video-name">{{item.name}}</text>
+          <view class="video-author">
+            <image class="author-avatar" src="{{doctor.avatar}}" mode="aspectFill"></image>
+            <text class="author-name">{{doctor.hospital}}{{doctor.name}}</text>
+            <view class="like-info">
+              <image class="like-icon" src="/images/like.png" mode="aspectFit"></image>
+              <text>{{item.likes}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 加载状态 -->
+    <view class="loading-status" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+    <view class="loading-status" wx:if="{{!hasMore && videos.length > 0}}">
+      <text>没有更多了</text>
+    </view>
+  </view>
+</view>

@@ -8,7 +8,8 @@
     "pages/cert-choice/cert-choice",
     "pages/doctor-certification/doctor-certification",
     "pages/patient-certification/patient-certification",
-    "pages/doctor-edit/doctor-edit"
+    "pages/doctor-edit/doctor-edit",
+    "pages/doctor-detail/doctor-detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

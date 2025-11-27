@@ -97,6 +97,14 @@
           </view>
         </view>
       </view>
+      
+      <!-- 加载状态 -->
+      <view class="loading-status" wx:if="{{doctorLoading}}">
+        <text>加载中...</text>
+      </view>
+      <view class="loading-status" wx:if="{{!doctorHasMore && doctors.length > 0}}">
+        <text>没有更多了</text>
+      </view>
     </block>
 
     <!-- 科普之星内容 -->
@@ -129,6 +137,14 @@
             <text class="doctor-intro">{{item.introduction}}</text>
           </view>
         </view>
+      </view>
+      
+      <!-- 加载状态 -->
+      <view class="loading-status" wx:if="{{starLoading}}">
+        <text>加载中...</text>
+      </view>
+      <view class="loading-status" wx:if="{{!starHasMore && stars.length > 0}}">
+        <text>没有更多了</text>
       </view>
     </block>
 

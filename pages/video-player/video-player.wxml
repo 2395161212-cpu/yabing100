@@ -60,14 +60,6 @@
             <text class="action-icon">{{item.liked ? '❤️' : '🤍'}}</text>
             <text class="action-text">{{item.likes}}</text>
           </view>
-          <view class="action-item" bindtap="onCommentTap" data-index="{{index}}">
-            <text class="action-icon">💬</text>
-            <text class="action-text">{{item.comments}}</text>
-          </view>
-          <view class="action-item" bindtap="onShareTap" data-index="{{index}}">
-            <text class="action-icon">📤</text>
-            <text class="action-text">分享</text>
-          </view>
         </view>
       </view>
       

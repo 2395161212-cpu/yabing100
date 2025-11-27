@@ -23,6 +23,10 @@ Page({
     ],
     activeDoctorCategory: 0,
     doctors: [],
+    doctorPage: 1,
+    doctorPageSize: 6,
+    doctorLoading: false,
+    doctorHasMore: true,
     // 科普之星相关
     starCategories: [
       { id: 0, name: '推荐' },
@@ -31,7 +35,11 @@ Page({
       { id: 3, name: '专家' }
     ],
     activeStarCategory: 0,
-    stars: []
+    stars: [],
+    starPage: 1,
+    starPageSize: 6,
+    starLoading: false,
+    starHasMore: true
   },
 
   onLoad(options) {
@@ -176,13 +184,30 @@ Page({
 
   // 滚动到底部加载更多
   loadMore() {
-    this.loadVideos();
+    const activeNav = this.data.activeNav;
+    if (activeNav === 0) {
+      this.loadVideos();
+    } else if (activeNav === 1) {
+      this.loadDoctors();
+    } else if (activeNav === 2) {
+      this.loadStars();
+    }
+  },
+
+  // 页面上拉触底事件
+  onReachBottom() {
+    this.loadMore();
   },
 
   // 金刚位点击事件
   onNavTap(e) {
     const id = e.currentTarget.dataset.id;
     const nav = this.data.navItems.find(item => item.id === id);
+    
+    // CHTV 不响应点击
+    if (id === 3) {
+      return;
+    }
     
     // 更新激活状态
     this.setData({
@@ -270,29 +295,47 @@ Page({
 
   // 加载医生列表
   loadDoctors() {
-    const doctors = this.generateMockDoctors();
-    this.setData({
-      doctors: doctors
-    });
+    if (this.data.doctorLoading || !this.data.doctorHasMore) {
+      return;
+    }
+
+    this.setData({ doctorLoading: true });
+
+    setTimeout(() => {
+      const newDoctors = this.generateMockDoctors(this.data.doctorPage, this.data.doctorPageSize);
+      
+      this.setData({
+        doctors: [...this.data.doctors, ...newDoctors],
+        doctorPage: this.data.doctorPage + 1,
+        doctorLoading: false,
+        doctorHasMore: newDoctors.length === this.data.doctorPageSize
+      });
+    }, 500);
   },
 
   // 生成模拟医生数据
-  generateMockDoctors() {
+  generateMockDoctors(page, pageSize) {
     const doctors = [];
-    const names = ['医生一', '医生二', '医生三', '医生四'];
-    const departments = ['心血管内科', '内分泌科', '神经内科', '儿科'];
-    const hospitals = ['南方医科院大学', '北京协和医院', '上海交通大学医学院', '复旦大学附属医院'];
-    const tags = ['标签内容一', '标签内容二', '专家门诊', '特需门诊'];
+    const startIndex = (page - 1) * pageSize;
+    const names = ['王卫海', '李明华', '张建国', '刘志强', '陈晓东', '赵文博'];
+    const departments = ['心血管内科', '内分泌科', '神经内科', '儿科', '骨科', '消化内科'];
+    const hospitals = ['南方医科院大学', '北京协和医院', '上海交通大学医学院', '复旦大学附属医院', '中山大学附属医院', '浙江大学医学院'];
+    const tags = ['心血管内科', '糖尿病专家', '神经科专家', '儿科专家', '骨科专家', '消化科专家'];
     
-    for (let i = 0; i < 4; i++) {
+    // 模拟最多加载30个医生
+    const totalDoctors = 30;
+    const count = Math.min(pageSize, totalDoctors - startIndex);
+    
+    for (let i = 0; i < count; i++) {
+      const index = startIndex + i;
       doctors.push({
-        id: i + 1,
-        name: names[i],
-        avatar: `https://picsum.photos/200/200?random=${i + 100}`,
+        id: index + 1,
+        name: names[index % names.length],
+        avatar: `https://picsum.photos/200/200?random=${index + 100}`,
         title: '主任医师',
-        department: departments[i],
-        hospital: hospitals[i],
-        tag: tags[i],
+        department: departments[index % departments.length],
+        hospital: hospitals[index % hospitals.length],
+        tag: tags[index % tags.length],
         introduction: '主任医师，医学博士，毕业于，临床经验8年。擅长：冠心病、不稳定型心绞痛、高血压、心力衰竭、动脉粥样硬化、高脂血症、早搏、卵圆孔未闭等。'
       });
     }
@@ -312,38 +355,63 @@ Page({
   // 医生卡片点击
   onDoctorTap(e) {
     const id = e.currentTarget.dataset.id;
-    console.log('点击医生:', id);
-    wx.showToast({
-      title: '医生详情页开发中',
-      icon: 'none'
-    });
+    const doctor = this.data.doctors.find(item => item.id === id);
+    
+    if (doctor) {
+      wx.navigateTo({
+        url: `/pages/doctor-detail/doctor-detail?doctor=${encodeURIComponent(JSON.stringify(doctor))}`
+      });
+    } else {
+      wx.showToast({
+        title: '医生信息不存在',
+        icon: 'none'
+      });
+    }
   },
 
   // 加载科普之星列表
   loadStars() {
-    const stars = this.generateMockStars();
-    this.setData({
-      stars: stars
-    });
+    if (this.data.starLoading || !this.data.starHasMore) {
+      return;
+    }
+
+    this.setData({ starLoading: true });
+
+    setTimeout(() => {
+      const newStars = this.generateMockStars(this.data.starPage, this.data.starPageSize);
+      
+      this.setData({
+        stars: [...this.data.stars, ...newStars],
+        starPage: this.data.starPage + 1,
+        starLoading: false,
+        starHasMore: newStars.length === this.data.starPageSize
+      });
+    }, 500);
   },
 
   // 生成模拟科普之星数据
-  generateMockStars() {
+  generateMockStars(page, pageSize) {
     const stars = [];
-    const names = ['科普之星一', '科普之星二', '科普之星三', '科普之星四'];
-    const departments = ['骨科', '妇产科', '皮肤科', '营养科'];
-    const hospitals = ['中山大学附属医院', '浙江大学医学院', '四川大学华西医院', '武汉大学人民医院'];
-    const tags = ['优质创作者', '热门推荐', '最佳科普奖', '人气之星'];
+    const startIndex = (page - 1) * pageSize;
+    const names = ['科普之星一', '科普之星二', '科普之星三', '科普之星四', '科普之星五', '科普之星六'];
+    const departments = ['骨科', '妇产科', '皮肤科', '营养科', '眼科', '耳鼻喉科'];
+    const hospitals = ['中山大学附属医院', '浙江大学医学院', '四川大学华西医院', '武汉大学人民医院', '南京大学医学院', '天津医科大学'];
+    const tags = ['优质创作者', '热门推荐', '最佳科普奖', '人气之星', '新锐博主', '科普达人'];
     
-    for (let i = 0; i < 4; i++) {
+    // 模拟最多加载30个科普之星
+    const totalStars = 30;
+    const count = Math.min(pageSize, totalStars - startIndex);
+    
+    for (let i = 0; i < count; i++) {
+      const index = startIndex + i;
       stars.push({
-        id: i + 1,
-        name: names[i],
-        avatar: `https://picsum.photos/200/200?random=${i + 200}`,
+        id: index + 1,
+        name: names[index % names.length],
+        avatar: `https://picsum.photos/200/200?random=${index + 200}`,
         title: '副主任医师',
-        department: departments[i],
-        hospital: hospitals[i],
-        tag: tags[i],
+        department: departments[index % departments.length],
+        hospital: hospitals[index % hospitals.length],
+        tag: tags[index % tags.length],
         introduction: '副主任医师，医学硕士，从事临床工作多年。擅长：常见疾病诊治、健康科普传播，累计发布优质科普内容100+，获得患者一致好评。'
       });
     }
@@ -363,11 +431,18 @@ Page({
   // 科普之星卡片点击
   onStarTap(e) {
     const id = e.currentTarget.dataset.id;
-    console.log('点击科普之星:', id);
-    wx.showToast({
-      title: '科普之星详情页开发中',
-      icon: 'none'
-    });
+    const star = this.data.stars.find(item => item.id === id);
+    
+    if (star) {
+      wx.navigateTo({
+        url: `/pages/doctor-detail/doctor-detail?doctor=${encodeURIComponent(JSON.stringify(star))}`
+      });
+    } else {
+      wx.showToast({
+        title: '信息不存在',
+        icon: 'none'
+      });
+    }
   },
 
   onShareAppMessage() {
