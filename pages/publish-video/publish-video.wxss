@@ -179,6 +179,80 @@
   color: #3b82f6;
 }
 
+/* 封面上传区域 */
+.cover-section {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(59, 130, 246, 0.08);
+}
+
+.cover-upload-box {
+  width: 240rpx;
+  height: 320rpx;
+  border: 3rpx dashed #93c5fd;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+  transition: all 0.3s;
+}
+
+.cover-upload-box:active {
+  background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 100%);
+  border-color: #3b82f6;
+}
+
+.cover-upload-icon {
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16rpx;
+  box-shadow: 0 6rpx 16rpx rgba(59, 130, 246, 0.3);
+}
+
+.cover-upload-icon .icon-plus {
+  font-size: 48rpx;
+  color: #fff;
+  font-weight: 300;
+}
+
+.cover-upload-text {
+  font-size: 26rpx;
+  color: #1e40af;
+  font-weight: 500;
+}
+
+.cover-preview {
+  width: 240rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.preview-cover-img {
+  width: 240rpx;
+  height: 320rpx;
+  display: block;
+}
+
+.change-cover {
+  text-align: center;
+  padding: 16rpx;
+  background: #f8fafc;
+}
+
+.change-cover text {
+  font-size: 26rpx;
+  color: #3b82f6;
+}
+
 /* 标题输入 */
 .char-count {
   font-size: 26rpx;

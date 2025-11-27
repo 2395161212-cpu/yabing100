@@ -49,6 +49,29 @@
       </view>
     </view>
 
+    <!-- 封面上传区域 -->
+    <view class="cover-section">
+      <view class="section-header">
+        <text class="section-title">上传封面</text>
+        <text class="section-tip">建议尺寸 9:16，支持jpg/png</text>
+      </view>
+      
+      <view class="cover-upload-box" bindtap="chooseCover" wx:if="{{!coverImage}}">
+        <view class="cover-upload-icon">
+          <text class="icon-plus">+</text>
+        </view>
+        <text class="cover-upload-text">上传封面图</text>
+      </view>
+
+      <!-- 已选择封面预览 -->
+      <view class="cover-preview" wx:if="{{coverImage}}">
+        <image class="preview-cover-img" src="{{coverImage}}" mode="aspectFill"></image>
+        <view class="change-cover" bindtap="chooseCover">
+          <text>重新选择</text>
+        </view>
+      </view>
+    </view>
+
     <!-- 标题输入区域 -->
     <view class="title-section">
       <view class="section-header">

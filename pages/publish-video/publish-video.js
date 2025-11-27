@@ -20,6 +20,7 @@ Page({
       { id: 8, name: '其他' }
     ],
     selectedCategory: null,
+    coverImage: '',
     canPublish: false
   },
 
@@ -97,6 +98,37 @@ Page({
     this.checkCanPublish();
   },
 
+  // 选择封面图片
+  chooseCover() {
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        const tempFilePath = res.tempFiles[0].tempFilePath;
+        
+        this.setData({
+          coverImage: tempFilePath
+        });
+        
+        this.checkCanPublish();
+        
+        wx.showToast({
+          title: '封面已选择',
+          icon: 'success'
+        });
+      },
+      fail: (err) => {
+        if (err.errMsg !== 'chooseMedia:fail cancel') {
+          wx.showToast({
+            title: '选择图片失败',
+            icon: 'none'
+          });
+        }
+      }
+    });
+  },
+
   // 分类选择
   onCategoryTap(e) {
     const id = e.currentTarget.dataset.id;
@@ -108,8 +140,8 @@ Page({
 
   // 检查是否可以发布
   checkCanPublish() {
-    const { videoInfo, title, selectedCategory } = this.data;
-    const canPublish = videoInfo.tempFilePath && title.trim().length > 0 && title.length <= 24 && selectedCategory;
+    const { videoInfo, title, selectedCategory, coverImage } = this.data;
+    const canPublish = videoInfo.tempFilePath && coverImage && title.trim().length > 0 && title.length <= 24 && selectedCategory;
     this.setData({ canPublish });
   },
 
@@ -119,6 +151,8 @@ Page({
       let msg = '';
       if (!this.data.videoInfo.tempFilePath) {
         msg = '请先上传视频';
+      } else if (!this.data.coverImage) {
+        msg = '请上传封面图片';
       } else if (!this.data.title.trim()) {
         msg = '请输入视频标题';
       } else if (this.data.title.length > 24) {
