@@ -1,0 +1,110 @@
+<view class="page-container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-nav">
+    <view class="nav-content" style="padding-top: {{statusBarHeight}}px;">
+      <view class="nav-back" bindtap="goBack">
+        <image src="/images/goback.png" mode="aspectFit"></image>
+      </view>
+      <text class="nav-title">发布创作</text>
+      <view class="nav-placeholder"></view>
+    </view>
+  </view>
+
+  <!-- 占位高度 -->
+  <view style="height: {{navBarHeight}}px;"></view>
+
+  <!-- 主体内容 -->
+  <view class="content-area">
+    <!-- 视频上传区域 -->
+    <view class="upload-section">
+      <view class="section-header">
+        <text class="section-title">上传视频</text>
+        <text class="section-tip">支持mp4格式，建议时长3分钟内</text>
+      </view>
+      
+      <view class="upload-box" bindtap="chooseVideo" wx:if="{{!videoInfo.tempFilePath}}">
+        <view class="upload-icon">
+          <text class="icon-plus">+</text>
+        </view>
+        <text class="upload-text">点击上传视频</text>
+        <text class="upload-hint">支持拍摄或从相册选择</text>
+      </view>
+
+      <!-- 已选择视频预览 -->
+      <view class="video-preview" wx:if="{{videoInfo.tempFilePath}}">
+        <video 
+          class="preview-video"
+          src="{{videoInfo.tempFilePath}}"
+          controls
+          object-fit="contain"
+          show-center-play-btn="{{true}}"
+        ></video>
+        <view class="video-info-bar">
+          <text class="video-duration">时长: {{videoInfo.duration}}秒</text>
+          <text class="video-size">大小: {{videoInfo.size}}MB</text>
+        </view>
+        <view class="change-video" bindtap="chooseVideo">
+          <text>重新选择</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 标题输入区域 -->
+    <view class="title-section">
+      <view class="section-header">
+        <text class="section-title">视频标题</text>
+        <text class="char-count {{titleLength > 24 ? 'over-limit' : ''}}">{{titleLength}}/24</text>
+      </view>
+      <view class="title-input-wrap">
+        <textarea 
+          class="title-input"
+          placeholder="请输入视频标题，让更多人了解您的科普内容"
+          placeholder-class="placeholder-text"
+          maxlength="24"
+          value="{{title}}"
+          bindinput="onTitleInput"
+          auto-height
+        ></textarea>
+      </view>
+    </view>
+
+    <!-- 分类选择 -->
+    <view class="category-section">
+      <view class="section-header">
+        <text class="section-title">选择分类</text>
+      </view>
+      <view class="category-list">
+        <view 
+          class="category-item {{selectedCategory === item.id ? 'active' : ''}}"
+          wx:for="{{categories}}"
+          wx:key="id"
+          bindtap="onCategoryTap"
+          data-id="{{item.id}}"
+        >
+          {{item.name}}
+        </view>
+      </view>
+    </view>
+
+    <!-- 温馨提示 -->
+    <view class="tips-section">
+      <view class="tips-header">
+        <text class="tips-icon">💡</text>
+        <text class="tips-title">温馨提示</text>
+      </view>
+      <view class="tips-content">
+        <text class="tip-item">• 请确保视频内容为原创健康科普知识</text>
+        <text class="tip-item">• 视频内容需符合医疗健康相关规范</text>
+        <text class="tip-item">• 审核通过后将展示在您的个人主页</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部发布按钮 -->
+  <view class="footer-bar">
+    <button class="publish-btn {{canPublish ? 'active' : 'disabled'}}" bindtap="onPublish">
+      发布视频
+    </button>
+  </view>
+</view>
+

@@ -22,10 +22,17 @@ Page({
       { id: 1, name: '我关注的' }
     ],
     activeCategory: 0,
-    doctorVideos: []
+    doctorVideos: [],
+    statusBarHeight: 0,
+    navBarHeight: 0,
+    menuButtonTop: 0,
+    menuButtonHeight: 32
   },
 
   onLoad(options) {
+    // 设置导航栏高度
+    this.setNavBarHeight();
+    
     // 正常加载用户信息
     // this.clearTestData();
     // this.loadUserInfo();
@@ -36,6 +43,18 @@ Page({
 
     // 加载医生视频
     this.loadDoctorVideos();
+  },
+
+  // 设置导航栏高度
+  setNavBarHeight() {
+    const systemInfo = wx.getSystemInfoSync();
+    const statusBarHeight = systemInfo.statusBarHeight || 0;
+    const navBarHeight = statusBarHeight + 44; // 44 是导航栏内容区域的高度
+    
+    this.setData({
+      statusBarHeight,
+      navBarHeight
+    });
   },
 
   // 清除测试数据
@@ -264,6 +283,13 @@ Page({
     });
   },
 
+  // 去发布创作页面
+  goToPublish() {
+    wx.navigateTo({
+      url: "/pages/publish-video/publish-video",
+    });
+  },
+
   // 退出登录
   logout() {
     wx.showModal({
@@ -322,10 +348,10 @@ Page({
     for (let i = 0; i < 4; i++) {
       videos.push({
         id: `${category}-${i}`,
-        cover: `https://picsum.photos/350/380?random=${category * 10 + i}`,
+        cover: `https://placehold.co/350x380/3b82f6/white?text=视频${i + 1}`,
         title: `${categoryName}视频 ${i + 1} - 健康科普内容`,
         author: category === 0 ? '陶勇医生' : `医生${i + 1}`,
-        avatar: `https://picsum.photos/44/44?random=${category * 100 + i}`,
+        avatar: `https://placehold.co/44x44/4a90e2/white?text=医`,
         likes: Math.floor(Math.random() * 5000)
       });
     }

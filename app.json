@@ -9,7 +9,8 @@
     "pages/doctor-certification/doctor-certification",
     "pages/patient-certification/patient-certification",
     "pages/doctor-edit/doctor-edit",
-    "pages/doctor-detail/doctor-detail"
+    "pages/doctor-detail/doctor-detail",
+    "pages/publish-video/publish-video"
   ],
   "window": {
     "backgroundTextStyle": "light",

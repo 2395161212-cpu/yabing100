@@ -165,10 +165,10 @@ Page({
       videos.push({
         id: index,
         videoUrl: localVideo.videoUrl,
-        cover: `https://picsum.photos/350/380?random=${index}`,
+        cover: `https://placehold.co/350x380/3b82f6/white?text=视频${index}`,
         title: `健康科普知识第${index}期 - 专家讲解${fileName}相关医学知识`,
         author: `张医生${index}`,
-        avatar: `https://picsum.photos/44/44?random=${index + 1000}`,
+        avatar: `https://placehold.co/44x44/4a90e2/white?text=医`,
         description: `这是 ${fileName}.mp4 视频（编号${index}）`,
         views: Math.floor(Math.random() * 10000),
         likes: Math.floor(Math.random() * 5000),
@@ -331,7 +331,7 @@ Page({
       doctors.push({
         id: index + 1,
         name: names[index % names.length],
-        avatar: `https://picsum.photos/200/200?random=${index + 100}`,
+        avatar: `https://placehold.co/200x200/4a90e2/white?text=${names[index % names.length].charAt(0)}`,
         title: '主任医师',
         department: departments[index % departments.length],
         hospital: hospitals[index % hospitals.length],
@@ -407,7 +407,7 @@ Page({
       stars.push({
         id: index + 1,
         name: names[index % names.length],
-        avatar: `https://picsum.photos/200/200?random=${index + 200}`,
+        avatar: `https://placehold.co/200x200/2563eb/white?text=星${index + 1}`,
         title: '副主任医师',
         department: departments[index % departments.length],
         hospital: hospitals[index % hospitals.length],

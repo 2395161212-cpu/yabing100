@@ -8,6 +8,37 @@ page {
   padding-bottom: 100rpx;
 }
 
+/* 自定义导航栏 */
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  z-index: 9998;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.navbar-content {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding-left: 16rpx;
+  padding-right: 16rpx;
+  
+}
+
+.navbar-logo {
+  width: 230rpx;
+  height: 48rpx;
+}
+
+.navbar-title {
+  font-size: 34rpx;
+  font-weight: 500;
+  color: #333;
+}
+
 /* 未认证区域 - 医疗蓝色主题 */
 .unauth-section {
   position: relative;

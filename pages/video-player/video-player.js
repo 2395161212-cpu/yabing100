@@ -232,7 +232,7 @@ Page({
       videos.push({
         id: index,
         videoUrl: localVideo.videoUrl,
-        cover: `https://picsum.photos/750/1334?random=${index}`,
+        cover: `https://placehold.co/750x1334/3b82f6/white?text=视频${index}`,
         title: `视频 ${index} - ${fileName}.mp4`,
         author: `UP主${index}`,
         description: `这是 ${fileName}.mp4 视频（编号${index}）`,

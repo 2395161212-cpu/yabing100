@@ -91,7 +91,7 @@ Page({
       const videoIndex = (index - 1) % videoUrls.length;
       videos.push({
         id: index,
-        cover: `https://picsum.photos/400/500?random=${200 + index}`,
+        cover: `https://placehold.co/400x500/4a90e2/white?text=视频${index}`,
         videoUrl: videoUrls[videoIndex],
         title: titles[(index - 1) % titles.length],
         name: `视频内容${index}标题`,
